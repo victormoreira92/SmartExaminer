@@ -11,5 +11,12 @@ that allows teachers to create quizzes, polls, and assessments for their student
 
 # Documentation
 
+# Todo
+  * CRUD of User 
+  * Sign_in/Sign_out
+  * Create Model Role
+  * Create rules fo each role 
+  
 # Images of system
+
 
