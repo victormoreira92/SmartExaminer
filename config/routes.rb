@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
 
   get '/home', to: 'landing_page#index'
 
-  devise_for :users
 
   devise_scope :user do 
     get 'user/sign_out' => 'devise#destroy'

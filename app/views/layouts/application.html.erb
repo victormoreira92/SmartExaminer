@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OnlineTest</title>
+    <title>Smart Exmanier</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,13 @@
   </head>
 
   <body>
+    <% flash.each |key, msg| do%>
+     <div class="alert alert-info">
+        <%= msg %>
+       <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true">×</button>
+      </div>
+
     <%= yield %>
+   
   </body>
 </html>
