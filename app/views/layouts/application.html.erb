@@ -11,11 +11,12 @@
   </head>
 
   <body>
-    <% flash.each |key, msg| do%>
+    <% flash.each  do |key, msg| %>
      <div class="alert alert-info">
         <%= msg %>
        <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true">×</button>
       </div>
+    <% end %>
 
     <%= yield %>
    

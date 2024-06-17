@@ -3,6 +3,7 @@
   first_name:string
   last_name:string
   institution:string
+  role (admin, teacher, student) : integer
 =end
 
 class User < ApplicationRecord
@@ -15,5 +16,5 @@ class User < ApplicationRecord
   validates :last_name, presence: true 
   validates :instituition, presence: true
 
-  enum role: { teacher: 0, student: 1 }
+  enum role: { admin: 0, teacher: 1, student: 2 }
 end
