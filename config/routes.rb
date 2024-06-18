@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
-
+  
+  devise_for :users, controllers: { 
+    registrations: 'users/registrations',
+    confirmations: 'confirmations' 
+  }
+  
   get '/home', to: 'landing_page#index'
 
 
