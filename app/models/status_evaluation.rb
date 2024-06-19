@@ -1,0 +1,2 @@
+class StatusEvaluation < ApplicationRecord
+end
