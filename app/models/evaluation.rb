@@ -8,6 +8,8 @@
         fill_white_space,
 =end
 class Evaluation < ApplicationRecord
+  before_create :set_status_evaluation
+
   validates :title, presence: true
   validates :evaluation_type, presence: true
   validates :number_questions, presence: true, numericality: { greater_than_or_equal_to: 1, only_integer: true }
@@ -18,4 +20,10 @@ class Evaluation < ApplicationRecord
     true_or_false: 2,
     fill_white_space: 3
   }
+
+  belongs_to :status_evaluation
+
+  def set_status_evaluation
+    self.status_evaluation = StatusEvaluation.waiting_for_aplication.first
+  end
 end
