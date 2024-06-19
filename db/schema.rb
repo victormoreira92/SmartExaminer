@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_19_125341) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_19_174344) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_125341) do
     t.string "title"
     t.integer "number_questions"
     t.integer "evaluation_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "status_evaluation_id"
+    t.index ["status_evaluation_id"], name: "index_evaluations_on_status_evaluation_id"
+  end
+
+  create_table "status_evaluations", force: :cascade do |t|
+    t.integer "step"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,4 +50,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_125341) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "evaluations", "status_evaluations"
 end
