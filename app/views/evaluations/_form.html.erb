@@ -1,0 +1,24 @@
+<%= form_with(model: @evaluation) do |form| %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :number_questions, style: "display: block" %>
+    <%= form.number_field :number_questions, min: 1%>
+  </div>
+
+  <div>
+    <%= form.label :evaluation_type, 'Evaluation type',  style: "display: block" %>
+    <%= form.select :evaluation_type,
+                   options_for_select(
+                     Evaluation.evaluation_types.keys)
+    %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
