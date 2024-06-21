@@ -13,8 +13,8 @@ RSpec.describe Evaluation, type: :model do
         evaluation = build(:evaluation, :without_title)
         expect(evaluation).not_to be_valid
       end
-      it 'without type' do
-        evaluation = build(:evaluation, :without_type)
+      it 'without evaluation_type' do
+        evaluation = build(:evaluation, :without_evaluation_type)
         expect(evaluation).not_to be_valid
       end
       it 'without number of questions' do
@@ -28,11 +28,6 @@ RSpec.describe Evaluation, type: :model do
 
       it 'number of questions not integer ' do
         evaluation = build(:evaluation, :number_questions_not_integer)
-        expect(evaluation).not_to be_valid
-      end
-
-      it 'without type' do
-        evaluation = build(:evaluation, :without_type)
         expect(evaluation).not_to be_valid
       end
     end

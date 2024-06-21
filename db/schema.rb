@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_19_174344) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_21_201512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_174344) do
     t.datetime "updated_at", null: false
     t.bigint "status_evaluation_id"
     t.index ["status_evaluation_id"], name: "index_evaluations_on_status_evaluation_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "question"
+    t.string "alternatives"
+    t.string "correct_answer"
+    t.string "student_answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "evaluation_id", null: false
+    t.index ["evaluation_id"], name: "index_quizzes_on_evaluation_id"
   end
 
   create_table "status_evaluations", force: :cascade do |t|
@@ -51,4 +62,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_174344) do
   end
 
   add_foreign_key "evaluations", "status_evaluations"
+  add_foreign_key "quizzes", "evaluations"
 end

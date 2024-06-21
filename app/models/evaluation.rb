@@ -22,8 +22,9 @@ class Evaluation < ApplicationRecord
   }
 
   belongs_to :status_evaluation
+  has_many :quizzes
 
   def set_status_evaluation
-    self.status_evaluation = StatusEvaluation.waiting_for_aplication.first
+    self.status_evaluation = StatusEvaluation.evaluation_awaiting_application.first
   end
 end

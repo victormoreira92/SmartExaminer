@@ -1,16 +1,17 @@
 FactoryBot.define do
   factory :evaluation do
+    association :status_evaluation
     title { Faker::Lorem.sentence }
     number_questions { 13 }
-    type { 1 }
+    evaluation_type { 1 }
   end
 
   trait :without_title do
     title { nil }
   end
 
-  trait :without_type do
-    type { nil }
+  trait :without_evaluation_type do
+    evaluation_type { nil }
   end
 
   trait :without_number_questions do
