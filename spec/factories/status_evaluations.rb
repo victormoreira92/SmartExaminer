@@ -4,15 +4,15 @@ FactoryBot.define do
     description { Faker::Lorem.sentence }
   end
 
-  trait :waiting_for_aplication do
+  trait :evaluation_awaiting_application do
     step { 0 }
   end
 
-  trait :aplication_in_process do
+  trait :evaluation_application_in_progress do
     step { 1 }
   end
 
-  trait :application_completed do
+  trait :evaluation_application_finished do
     step { 2 }
   end
 
