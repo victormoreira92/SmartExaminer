@@ -13,7 +13,7 @@ class Evaluation < ApplicationRecord
   validates :title, presence: true
   validates :evaluation_type, presence: true
   validates :number_questions, presence: true, numericality: { greater_than_or_equal_to: 1, only_integer: true }
-
+  validates_associated :quizzes
   enum evaluation_type: {
     multiple_choice: 0,
     short_answer: 1,
@@ -22,7 +22,7 @@ class Evaluation < ApplicationRecord
   }
 
   belongs_to :status_evaluation
-  has_many :quizzes
+  has_many :quizzes, dependent: :delete_all
 
   def set_status_evaluation
     self.status_evaluation = StatusEvaluation.evaluation_awaiting_application.first
