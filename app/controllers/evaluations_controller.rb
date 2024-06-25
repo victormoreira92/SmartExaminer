@@ -5,9 +5,6 @@ class EvaluationsController < ApplicationController
   def index
     @evaluations = Evaluation.all
 
-    respond_to do |format|
-      format.html { render :index, notice: params[:notice] unless params[:notice].nil? }
-    end
   end
 
   # GET /evaluations/1 or /evaluations/1.json
@@ -17,10 +14,15 @@ class EvaluationsController < ApplicationController
   # GET /evaluations/new
   def new
     @evaluation = Evaluation.new
+
   end
 
   # GET /evaluations/1/edit
   def edit
+  end
+
+  def quizzes
+   @quiz = @evaluation.quizzes.new
   end
 
   # POST /evaluations or /evaluations.json
