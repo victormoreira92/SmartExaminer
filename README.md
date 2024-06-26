@@ -1,4 +1,4 @@
-# SmartExaminer
+# Smart Examiner
 
 Online system to teachers create 
 that allows teachers to create quizzes, polls, and assessments for their students.
@@ -10,12 +10,15 @@ that allows teachers to create quizzes, polls, and assessments for their student
 # How to run 
 
 # Documentation
+  ![Uml diagram](/docs/diagram_uml.jpeg "Smart Examiner UML")
 
 # Todo
   * CRUD of User 
   * Sign_in/Sign_out
   * Create Model Role
   * Create rules fo each role 
+  * Create Style Landing Page 
+  * Create Style Dashboard Page
   
 # Images of system
 
