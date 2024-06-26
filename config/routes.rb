@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :evaluations
+  resources :evaluations do 
+    member do 
+      get 'quiz'
+    end
+  end
   
   devise_for :users, controllers: { 
     registrations: 'users/registrations',

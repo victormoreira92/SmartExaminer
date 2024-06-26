@@ -5,3 +5,4 @@ import '@popperjs/core'
 import jQuery from "jquery";
 import "./controllers"
 import * as bootstrap from "bootstrap"
+import '@nathanvda/cocoon'
