@@ -12,7 +12,7 @@
   </head>
 
   <body>
-
+  <%= render "sharing/nav" %>
   <% flash.each do |key, message| %>
     <% if message.kind_of?(Array) %>
       <div class="alert <%= flash_class(key) %> alert-dismissible text-center">
@@ -36,6 +36,8 @@
 
 
   <%= yield %>
+
+  <%= render 'sharing/footer' %>
    
   </body>
 </html>
