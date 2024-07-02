@@ -12,32 +12,19 @@
   </head>
 
   <body>
-  <%= render "sharing/nav" %>
-  <% flash.each do |key, message| %>
-    <% if message.kind_of?(Array) %>
-      <div class="alert <%= flash_class(key) %> alert-dismissible text-center">
-        <ul>
-          <% message.each do |messagem| %>
-            <li><%= messagem %></li>
-          <% end %>
-        </ul>
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      </div>
+  <main id="wrapper" style="background-color: #f1f5f8">
+    <section>
 
+      <%= yield %>
 
-    <% else %>
-      <div class="alert <%= flash_class(key) %> alert-dismissible text-center">
-        <%= message %>
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      </div>
-    <% end %>
-  <% end %>
-
-
-
-  <%= yield %>
-
+    </section>
+  </main>
   <%= render 'sharing/footer' %>
-   
+
+
+
+
+
+
   </body>
 </html>

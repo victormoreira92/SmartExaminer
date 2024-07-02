@@ -1,60 +1,20 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
-<%= link_to "Sign in", user_session_url, class:"btn btn-info"%>
-<%= link_to "Sign out", destroy_user_session_url, method: :delete, class:"btn btn-info"%>
+<div class="d-flex">
+  <%= render 'sharing/sidebar' %>
+  <div class="col-md-9 vh-100">
+    <%= render 'sharing/nav' %>
 
-
- <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white w-50" id="sidebar-wrapper">
-              <div class="sidebar-heading border-bottom border-end bg-light py-3">SmartExaminer</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action p-3" href="#!">
-                        Dashboard
-                    </a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
-                        Tests
-                    </a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                </div>
-              </div>
-                <div id="page-content-wrapper">
-                <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom ">
-                    <div class="container-fluid flex-row-reverse">
-                        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse flex-row-reverse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Action</a>
-                                        <a class="dropdown-item" href="#!">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#!">Something else here</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <div class="container-fluid p-3">
-                    <h1 class="mt-4">Simple Sidebar</h1>
-                    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-                    <p>
-                        Make sure to keep all page content within the
-                        <code>#page-content-wrapper</code>
-                        . The top navbar is optional, and just for demonstration. Just create an element with the
-                        <code>#sidebarToggle</code>
-                        ID which will toggle the menu when clicked.
-                    </p>
-                </div>
-              </div>
-            </div>
+    <div class="d-flex p-3 justify-content-center">
+      <div class="card">
+        <div class="card-body">
+          <span class="badge badge-success">Active</span><span> Created at: 01.02.2014</span>
+          <h5 class="card-title">Teste 1</h5>
+          <p class="card-text">Some quick example text to build on the card title and
+            make up the bulk of the card's content.</p>
+          <div class="card-footer">
+            <div class="border border-primary">Uncaracteriozed</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
