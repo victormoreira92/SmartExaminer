@@ -17,17 +17,14 @@ RSpec.describe "/exams", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Exam. As you add validations to Exam, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:exam) {create(:exam)}
+  let(:exam_without_title) {create(:exam, title: nil)}
+  let(:exam_without_description) {create(:exam, description: nil)}
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
 
   describe "GET /index" do
     it "renders a successful response" do
-      Exam.create! valid_attributes
+      exam
       get exams_url
       expect(response).to be_successful
     end
@@ -35,7 +32,6 @@ RSpec.describe "/exams", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      exam = Exam.create! valid_attributes
       get exam_url(exam)
       expect(response).to be_successful
     end
@@ -50,7 +46,6 @@ RSpec.describe "/exams", type: :request do
 
   describe "GET /edit" do
     it "renders a successful response" do
-      exam = Exam.create! valid_attributes
       get edit_exam_url(exam)
       expect(response).to be_successful
     end
@@ -60,12 +55,12 @@ RSpec.describe "/exams", type: :request do
     context "with valid parameters" do
       it "creates a new Exam" do
         expect {
-          post exams_url, params: { exam: valid_attributes }
+          post exams_url, params: { exam: {title: "dddddd", description:"ffefefefefefefefefefe"} }
         }.to change(Exam, :count).by(1)
       end
 
       it "redirects to the created exam" do
-        post exams_url, params: { exam: valid_attributes }
+        post exams_url, params: { exam: {title: "dddddd", description:"ffefefefefefefefefefe"} }
         expect(response).to redirect_to(exam_url(Exam.last))
       end
     end

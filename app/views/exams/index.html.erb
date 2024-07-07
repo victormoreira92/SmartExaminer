@@ -46,7 +46,7 @@
               <div class="card-title">
                 <h6 class="font-weight-bold"><%= exam.title %></h6>
               </div>
-              <p class="card-text" style="font-size: 16px"><%= exam.description %></p>
+              <p class="card-text" style="font-size: 16px"><%= exam.description.empty? ? "(Not description)" : exam.description %></p>
               <p class="card-text h6 p-1 border border-secondary font-weight-bold text-lg-center text-secondary" style="margin-left: 50%; font-size: 16px">
                 UNCATEGORIZED
               </p>
