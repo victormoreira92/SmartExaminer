@@ -28,8 +28,8 @@ class ExamsController < ApplicationController
         format.html { redirect_to exam_url(@exam), notice: "Exam was successfully created." }
         format.json { render :show, status: :created, location: @exam }
       else
+        flash.now[:error] = @exam.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
       end
     end
   end

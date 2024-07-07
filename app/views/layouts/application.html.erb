@@ -9,12 +9,40 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <%= favicon_link_tag 'smartexaminer.ico' %>
-    <%= javascript_include_tag 'https://kit.fontawesome.com/157e18743d.js',crossorigin: "anonymous" %>
-  </head>
+    <%= javascript_include_tag 'https://kit.fontawesome.com/157e18743d.js',crossorigin: "anonymous" %>  </head>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
   <body>
   <main id="wrapper" style="background-color: #f1f5f8">
     <section>
+
+    <% flash.each do |key, message| %>
+      <% if message.kind_of?(Array) %>
+        <div class="alert alert-danger position-absolute z-3" style="bottom: 0; right: 30vw;" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+         <ul>
+              <% message.each do |messagem| %>
+                <li><%= messagem %></li>
+              <% end %>
+            </ul>
+        </div>
+
+          
+
+
+      <% else %>
+         <div class="alert alert-danger position-absolute z-3" style="bottom: 0; right: 30vw;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= message %>         
+          </div>        
+      <% end %>
+
+    <% end %>
 
       <%= yield %>
 
@@ -24,8 +52,6 @@
 
 
 
-
-
-
+  
   </body>
 </html>
