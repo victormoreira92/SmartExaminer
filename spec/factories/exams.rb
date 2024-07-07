@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :exam do
-    title { Faker::Lorem.word }
+    title { Faker::Lorem.sentence(word_count: 3) }
     description { Faker::Lorem.paragraph }
   end
 
