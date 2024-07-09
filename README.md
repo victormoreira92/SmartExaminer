@@ -10,7 +10,7 @@ that allows teachers to create quizzes, polls, and assessments for their student
 # How to run 
 
 # Documentation
-  ![Uml diagram](/docs/diagram_uml.jpeg "Smart Examiner UML")
+  <img src="docs/diagram_uml.jpeg" width="250">
 
 # Todo
   * CRUD of User 
