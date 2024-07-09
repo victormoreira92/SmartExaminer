@@ -7,3 +7,5 @@ import "./controllers"
 import * as bootstrap from "bootstrap"
 import '@nathanvda/cocoon'
 import './app'
+import "trix"
+import "@rails/actiontext"
