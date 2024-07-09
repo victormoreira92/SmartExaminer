@@ -41,8 +41,8 @@ class ExamsController < ApplicationController
         format.html { redirect_to exam_url(@exam), notice: "Exam was successfully updated." }
         format.json { render :show, status: :ok, location: @exam }
       else
+        flash.now[:error] = @exam.errors.full_messages
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @exam.errors, status: :unprocessable_entity }
       end
     end
   end
