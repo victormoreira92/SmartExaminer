@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <% @questions.each  do |questionn| %>
+        <div>
+          <%= questionn.id %>
+        </div>
+        <div>
+         Question:  <%= questionn.question %>
+        </div>
+        <div>
+         Feedback:  <%= questionn.feedback %>
+        </div>
+        <div>
+         Correct:  <%= questionn.correct_answer %>
+        </div>
+        <div>
+         Points:  <%= questionn.points %>
+        </div>
+        <div>
+          Alternative:  <%= questionn.alternatives %>
+        </div>
+        <hr>
+      <% end %>
+    </div>
+
+  </div>
+
+</div>

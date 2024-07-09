@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :exams
+
+  resources :exams do
+    resources :questions
+  end
 
   root 'dashboard#index'
 

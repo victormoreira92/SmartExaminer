@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_07_225558) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_09_204540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,12 +61,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_07_225558) do
 
   create_table "questions", force: :cascade do |t|
     t.string "feedback"
-    t.integer "type"
+    t.integer "type_question"
     t.integer "points"
     t.string "correct_answer"
     t.string "alternatives"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "exam_id", null: false
+    t.index ["exam_id"], name: "index_questions_on_exam_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,4 +92,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_07_225558) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "questions", "exams"
 end

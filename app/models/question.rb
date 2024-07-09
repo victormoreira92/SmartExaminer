@@ -1,7 +1,8 @@
 class Question < ApplicationRecord
   has_rich_text :question
+  belongs_to :exam
 
-  enum type: {
+  enum type_question: {
     single_choice: 0,
     multiple_choice: 1,
     true_false: 2,
