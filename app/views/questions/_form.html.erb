@@ -4,7 +4,11 @@
     <%= form.label :question %>
     <%= form.rich_text_area :question %>
   </div>
+  <div>
+    <%= form.label :type_question %>
+    <%= form.select  :type_question, Question.type_questions.keys %>
 
+  </div>
   <div>
     <%= form.label :correct_answer %>
     <%= form.text_field :correct_answer %>

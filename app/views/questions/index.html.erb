@@ -1,6 +1,6 @@
 <div class="d-flex">
   <%= render partial: 'sharing/sidebar_exams'%>
-  <div class="col-8 py-3">
+  <div class="col-8 py-5">
     <h5>Question manager</h5>
     <% @questions.each do |questionn| %>
       <div class="card p-3 my-2">
@@ -20,11 +20,13 @@
               <div><%= questionn.id %></div>
               <div>Question:  <%= questionn.question %></div>
               <div>Feedback:  <%= questionn.feedback %></div>
+              <div>Type Question:  <%= questionn.type_question %></div>
               <div>Correct:  <%= questionn.correct_answer %></div>
               <div>Points:  <%= questionn.points %></div>
             </div>
           </div>
         </div>
       </div>
-        <% end %>
+    <% end %>
+
 
