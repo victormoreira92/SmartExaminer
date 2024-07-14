@@ -1,0 +1,31 @@
+<div>
+  <%= form_with(model: question, local: true, url: exam_question_url ) do |form| %>
+  <div>
+    <%= form.label :question %>
+    <%= form.rich_text_area :question %>
+  </div>
+
+  <div>
+    <%= form.label :correct_answer %>
+    <%= form.text_field :correct_answer %>
+  </div>
+
+  <div>
+    <%= form.label :points %>
+    <%= form.number_field :points %>
+  </div>
+
+
+  <div>
+    <%= form.label :feedback %>
+    <%= form.text_field :feedback %>
+  </div>
+
+  <div>
+    <%= form.label :alternatives %>
+    <%= form.text_field :alternatives %>
+  </div>
+  
+  <%= form.submit %>
+  <%end%>
+</div>

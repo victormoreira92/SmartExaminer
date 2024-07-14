@@ -1,29 +1,30 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <% @questions.each  do |questionn| %>
-        <div>
-          <%= questionn.id %>
+<div class="d-flex">
+  <%= render partial: 'sharing/sidebar_exams'%>
+  <div class="col-8 py-3">
+    <h5>Question manager</h5>
+    <% @questions.each do |questionn| %>
+      <div class="card p-3 my-2">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="dropdown">
+                    <button class="btn h2 dropdown-toggle" type="button" id="dropdownMenuButton<%= questionn.id %>" data-target="dropdown<%=questionn.id %>" data-toggle="dropdown" aria-expanded="false">
+                      ...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown<%=questionn.id %>" >
+                      <a class="dropdown-item" href=<%= exam_question_path(questionn.exam.id, questionn.id) %>>Show Exam</a>
+                      <a class="dropdown-item" href=<%= edit_exam_question_path(questionn.exam.id, questionn.id) %>>Edit</a>
+                      <%= link_to "Delete", exam_question_path(questionn.exam.id, questionn.id), data: { toggle: "modal", target: "#question#{questionn.id}", question: questionn.id }, class:"dropdown-item" %>                 
+                      </div>
+                  </div>
+              <div><%= questionn.id %></div>
+              <div>Question:  <%= questionn.question %></div>
+              <div>Feedback:  <%= questionn.feedback %></div>
+              <div>Correct:  <%= questionn.correct_answer %></div>
+              <div>Points:  <%= questionn.points %></div>
+            </div>
+          </div>
         </div>
-        <div>
-         Question:  <%= questionn.question %>
-        </div>
-        <div>
-         Feedback:  <%= questionn.feedback %>
-        </div>
-        <div>
-         Correct:  <%= questionn.correct_answer %>
-        </div>
-        <div>
-         Points:  <%= questionn.points %>
-        </div>
-        <div>
-          Alternative:  <%= questionn.alternatives %>
-        </div>
-        <hr>
-      <% end %>
-    </div>
+      </div>
+        <% end %>
 
-  </div>
-
-</div>

@@ -15,7 +15,11 @@
     </div>
   </div>
   <div>
-    <%= form.submit 'Create', class:"btn btn-primary" %>
+    <% if exam.id.nil? %>
+      <%= form.submit 'Create exam', class:"btn btn-primary" %>
+    <% else %>
+      <%= form.submit 'Edit exam', class:"btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>
 <!--<div class="alert alert-primary" role="alert">

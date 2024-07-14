@@ -1,2 +1,18 @@
-<h1>Questions#edit</h1>
-<p>Find me in app/views/questions/edit.html.erb</p>
+<div class="d-flex">
+  <%= render partial: 'sharing/sidebar_exams'%>
+  <div class="col-8 py-3">
+    <h5>Question manager</h5>
+      <div class="card p-3 my-2">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <%= render "form", question: @question %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+</div>
+    
