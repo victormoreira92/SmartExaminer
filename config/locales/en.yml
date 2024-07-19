@@ -30,4 +30,16 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      exam: "Exam"
+      question: "Question"
+    attributes:
+      question:
+        type_questions:
+          free_text: "Free Text"
+          single_choice: "Single Choice"
+          multiple_choice: "Multiple Choice"
+          true_false: "True or False"
+          short_answer: "Short Answer"            
+
