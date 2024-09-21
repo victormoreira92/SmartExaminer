@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   has_rich_text :question
   belongs_to :exam
+  serialize :correct_answers, Array
 
   enum type_question: {
     single_choice: 0,

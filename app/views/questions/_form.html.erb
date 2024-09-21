@@ -1,35 +1,17 @@
-<div>
-  <%= form_with(model: question, local: true, url: exam_question_url ) do |form| %>
-  <div>
-    <%= form.label :question %>
-    <%= form.rich_text_area :question %>
-  </div>
-  <div>
-    <%= form.label :type_question %>
-    <%= form.select  :type_question, Question.type_questions.keys %>
-
-  </div>
-  <div>
-    <%= form.label :correct_answer %>
-    <%= form.text_field :correct_answer %>
-  </div>
-
-  <div>
-    <%= form.label :points %>
-    <%= form.number_field :points %>
-  </div>
-
-
-  <div>
-    <%= form.label :feedback %>
-    <%= form.text_field :feedback %>
-  </div>
-
-  <div>
-    <%= form.label :alternatives %>
-    <%= form.text_field :alternatives %>
+<%= simple_form_for(question, local: true, url: exam_questions_url) do |f| %>
+  <%= f.rich_text_area :question, value:"Qual a capital da Alenha" %>
+  <%= f.input :type_question, 
+              as: :select, 
+              collection: select_options,
+              class:"form-control" %>
+  <div class="fields" id="fields">
+    <div class="field">
+    </div>
+    <button type="button" id="add_field_button" >Add Answer</button>
   </div>
   
-  <%= form.submit %>
-  <%end%>
-</div>
+  <%= f.input :alternatives %>
+  <%= f.input :points, label: 'Score Settings' %>
+  <%= f.button :submit, class:"btn-success"%>
+<% end %>
+

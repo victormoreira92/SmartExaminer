@@ -12,16 +12,16 @@ class QuestionsController < ApplicationController
 
   def create
     @question = @exam.questions.build(question_params)
-
+    binding.pry
     respond_to do |format|
-     if @post.save  
+     if @question.save
         flash.now[:success] = "Question created"
         format.html { redirect_to shark_posts_path(@shark), notice: 'Post was successfully created.' }
      else
-      flash.now[:error] = @question.errors.full_messages
-      format.html { render :new, status: :unprocessable_entity }
-  end
-end
+        flash.now[:error] = @question.errors.full_messages
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit
@@ -58,6 +58,7 @@ end
   end
 
   def question_params
-    params.require(:question).permit(:feedback, :alternatives,:points,:type_question, :question, :correct_answer, :type_question)
+    params.require(:question).permit(:feedback, :alternatives,:points,:type_question, :question,
+                                     :type_question, correct_answer: [])
   end
 end

@@ -20,7 +20,7 @@
               <div><%= questionn.id %></div>
               <div>Question:  <%= questionn.question %></div>
               <div>Feedback:  <%= questionn.feedback %></div>
-              <div>Type Question:  <%= questionn.type_question %></div>
+              <div>Type Question:  <%= humanize_type_question(questionn.type_question) %></div>
               <div>Correct:  <%= questionn.correct_answer %></div>
               <div>Points:  <%= questionn.points %></div>
             </div>
