@@ -34,3 +34,5 @@ smartexaminer-api/tmp/storage/*
 !/app/assets/builds/.keep
 
 smartexaminer-api/node_modules
+/.idea
+/.idea/*
