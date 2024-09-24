@@ -8,4 +8,9 @@ class User < ApplicationRecord
          :trackable,
          :validatable,
          :api
+
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :password, confirmation: true, if: :password_required?
+  validates :password_confirmation, presence: true, if: :password_required?
 end
