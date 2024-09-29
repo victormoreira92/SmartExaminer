@@ -31,6 +31,13 @@
 
 en:
   activerecord:
+    models:
+      user: "User"
+      quiz: "Quiz"
     attributes:
       user:
         password_confirmation: "Password Confirmation"
+    messages:
+      created: "%{model} was created with success"
+      updated: "%{model} was updated with success"
+      deleted: "%{model} was deleted with success"
