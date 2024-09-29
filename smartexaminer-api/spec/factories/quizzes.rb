@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :quiz do
-    title { "MyString" }
-    status_quiz { 1 }
-    description { "MyString" }
+    title { Faker::Lorem.word }
+    status_quiz { 0 }
+    description { Faker::Lorem.sentence(word_count: 20) }
   end
 end

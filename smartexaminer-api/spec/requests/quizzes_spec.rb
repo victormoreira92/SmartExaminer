@@ -13,115 +13,135 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/quizzes", type: :request do
-  # This should return the minimal set of attributes required to create a valid
-  # Quiz. As you add validations to Quiz, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:quiz) { build(:quiz) }
+  let(:quiz_without_title) { build(:quiz, title: nil) }
+  let(:new_attributes) { build(:quiz) }
+  let(:token) { login_user }
 
-  # This should return the minimal set of values that should be in the headers
-  # in order to pass any filters (e.g. authentication) defined in
-  # QuizzesController, or in your router and rack
-  # middleware. Be sure to keep this updated too.
-  let(:valid_headers) {
-    {}
-  }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Quiz.create! valid_attributes
-      get quizzes_url, headers: valid_headers, as: :json
-      expect(response).to be_successful
+  describe "Request for QuizController" do
+
+    describe 'GET /index' do
+      before do
+        quiz = 2.times { create(:quiz) }
+      end
+
+      it "renders a successful response " do
+        token = login_user
+        get quizzes_url, headers: token, as: :json
+        expect(response).to be_successful
+      end
+
+      it "return all quiz created" do
+        token = login_user
+        get quizzes_url, headers: token, as: :json
+        expect(JSON.parse(response.body).count).to eq(2)
+      end
     end
-  end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      quiz = Quiz.create! valid_attributes
-      get quiz_url(quiz), as: :json
-      expect(response).to be_successful
+    describe "GET /show" do
+      it "renders a successful response" do
+        token = login_user
+        quiz = create(:quiz)
+        get quiz_url(quiz), headers: token,  as: :json
+        expect(response).to be_successful
+      end
+
+      it "confirms the returned quiz matches the created record" do
+        token = login_user
+        quiz = create(:quiz)
+        get quiz_url(quiz), headers: token,  as: :json
+        %w[id title description].each do |attribute|
+          expect(JSON.parse(response.body)[attribute]).to eq(quiz.send(attribute))
+        end
+      end
     end
-  end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Quiz" do
-        expect {
+    describe "POST /create" do
+      context "with valid parameters" do
+        it "creates a new Quiz" do
+          token = login_user
+          expect {
+            post quizzes_url,
+                 params: { quiz: quiz }, headers: token, as: :json
+          }.to change(Quiz, :count).by(1)
+        end
+
+        it "renders a JSON response with the new quiz" do
+          token = login_user
           post quizzes_url,
-               params: { quiz: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(Quiz, :count).by(1)
+               params: { quiz: quiz }, headers: token, as: :json
+          expect(response).to have_http_status(:created)
+          expect(response.content_type).to match(a_string_including("application/json"))
+        end
       end
 
-      it "renders a JSON response with the new quiz" do
-        post quizzes_url,
-             params: { quiz: valid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Quiz" do
-        expect {
+      context "with invalid parameters" do
+        it "renders status unprocessable_entity" do
+          token = login_user
           post quizzes_url,
-               params: { quiz: invalid_attributes }, as: :json
-        }.to change(Quiz, :count).by(0)
-      end
+               params: { quiz: quiz_without_title }, headers: token, as: :json
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
 
-      it "renders a JSON response with errors for the new quiz" do
-        post quizzes_url,
-             params: { quiz: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested quiz" do
-        quiz = Quiz.create! valid_attributes
-        patch quiz_url(quiz),
-              params: { quiz: new_attributes }, headers: valid_headers, as: :json
-        quiz.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "renders a JSON response with the quiz" do
-        quiz = Quiz.create! valid_attributes
-        patch quiz_url(quiz),
-              params: { quiz: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        it "title blank" do
+          token = login_user
+          post quizzes_url,
+               params: { quiz: quiz_without_title },
+               headers: token, as: :json
+          expect(JSON.parse(response.body)["title"]).to include("can't be blank")
+        end
       end
     end
 
-    context "with invalid parameters" do
-      it "renders a JSON response with errors for the quiz" do
-        quiz = Quiz.create! valid_attributes
-        patch quiz_url(quiz),
-              params: { quiz: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
+    describe "PATCH /update" do
+      context "with valid parameters" do
+        it " access update return status success" do
+          token = login_user
+          quiz = create(:quiz)
+          patch quiz_url(quiz),
+                params: { quiz: new_attributes }, headers: token, as: :json
+          expect(response).to have_http_status(:success)
+        end
+
+        it "updates the requested quiz" do
+          token = login_user
+          quiz = create(:quiz)
+          patch quiz_url(quiz),
+                params: { quiz: new_attributes }, headers: token, as: :json
+          expect(JSON.parse(response.body)["title"]).to eq(new_attributes[:title])
+        end
+      end
+      context "with invalid parameters" do
+        it "renders status unprocessable_entity" do
+          token = login_user
+          quiz = create(:quiz)
+          patch quiz_url(quiz),
+                params: { quiz: quiz_without_title }, headers: token, as: :json
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it "title blank" do
+          token = login_user
+          quiz = create(:quiz)
+          patch quiz_url(quiz),
+
+                params: { quiz: quiz_without_title },
+                headers: token, as: :json
+          expect(JSON.parse(response.body)["title"]).to include("can't be blank")
+        end
       end
     end
-  end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested quiz" do
-      quiz = Quiz.create! valid_attributes
-      expect {
-        delete quiz_url(quiz), headers: valid_headers, as: :json
-      }.to change(Quiz, :count).by(-1)
+    describe "DELETE /destroy" do
+      it "destroys the requested quiz" do
+        quiz = create(:quiz)
+        expect {
+          delete quiz_url(quiz), headers: token, as: :json
+        }.to change(Quiz, :count).by(-1)
+      end
     end
   end
 end
+
