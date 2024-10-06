@@ -34,9 +34,18 @@ en:
     models:
       user: "User"
       quiz: "Quiz"
+      question: "Question"
+      answer: "Answer"
     attributes:
       user:
         password_confirmation: "Password Confirmation"
+      answer:
+        type_question:
+          single_choice: "Single Choice"
+          multi_choice: "Multiple Choice"
+          true_or_false: "True or False"
+          short_answer: "Short Answer"
+          essay_answer: "Essay Answer"
     messages:
       created: "%{model} was created with success"
       updated: "%{model} was updated with success"
