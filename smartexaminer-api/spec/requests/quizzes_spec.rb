@@ -90,7 +90,7 @@ RSpec.describe "/quizzes", type: :request do
           post quizzes_url,
                params: { quiz: quiz_without_title },
                headers: token, as: :json
-          expect(JSON.parse(response.body)["title"]).to include("can't be blank")
+          expect(JSON.parse(response.body)["messages"]).to include("Title can't be blank")
         end
       end
     end
@@ -110,7 +110,7 @@ RSpec.describe "/quizzes", type: :request do
           quiz = create(:quiz)
           patch quiz_url(quiz),
                 params: { quiz: new_attributes }, headers: token, as: :json
-          expect(JSON.parse(response.body)["title"]).to eq(new_attributes[:title])
+          expect(JSON.parse(response.body)["quiz"]["title"]).to eq(new_attributes[:title])
         end
       end
       context "with invalid parameters" do
@@ -129,7 +129,7 @@ RSpec.describe "/quizzes", type: :request do
 
                 params: { quiz: quiz_without_title },
                 headers: token, as: :json
-          expect(JSON.parse(response.body)["title"]).to include("can't be blank")
+          expect(JSON.parse(response.body)["messages"]).to include("Title can't be blank")
         end
       end
     end
