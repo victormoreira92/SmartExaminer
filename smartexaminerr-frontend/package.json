@@ -1,5 +1,5 @@
 {
-  "name": "smartexaminer-frontend",
+  "name": "smartexaminerr-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:smartexaminer-frontend": "node dist/smartexaminer-frontend/server/server.mjs"
+    "serve:ssr:smartexaminerr-frontend": "node dist/smartexaminerr-frontend/server/server.mjs"
   },
   "private": true,
   "dependencies": {
