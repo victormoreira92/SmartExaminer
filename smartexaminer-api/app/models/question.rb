@@ -7,7 +7,6 @@ class Question < ApplicationRecord
     essay_answer: 4,
   }
 
-  has_rich_text :content
   belongs_to :quiz, optional: true
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers

@@ -27,7 +27,9 @@ class QuestionsController < ApplicationController
       }, status: :created
     else
       render json: {
-        messages: @question.errors.full_messages
+        error: {
+          messages: @question.errors.full_messages
+        }
       }, status: :unprocessable_entity
     end
   end
@@ -41,7 +43,9 @@ class QuestionsController < ApplicationController
       }, status: :ok
     else
       render json: {
-        messages: @question.errors.full_messages
+        error: {
+          messages: @question.errors.full_messages
+        }
       }, status: :unprocessable_entity
     end
   end
@@ -54,7 +58,9 @@ class QuestionsController < ApplicationController
       },status: :ok
     else
       render json: {
-        message: @question.errors.full_messages
+        error: {
+          messages: @question.errors.full_messages
+        }
       }, status: :unprocessable_entity
     end
   end

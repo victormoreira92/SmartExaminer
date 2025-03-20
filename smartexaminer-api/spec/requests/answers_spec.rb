@@ -24,17 +24,17 @@ RSpec.describe "Answers", type: :request do
       type_question: "single_choice",
       score: 5,
       answers_attributes: [
-        { answer_content: "", correct: false },
-        { answer_content: "", correct: false },
-        { answer_content: "", correct: false },
-        { answer_content: "", correct: true }
+        { answer_content: '', correct: false },
+        { answer_content: '', correct: false },
+        { answer_content: '', correct: false },
+        { answer_content: '', correct: true }
       ]
     }
   end
 
 
-  describe "GET /questions" do
-    it "renders a successful response" do
+  describe 'GET /questions' do
+    it 'renders a successful response' do
       token = login_user
       get questions_url, headers: token, as: :json
       expect(response).to be_successful
@@ -48,12 +48,12 @@ RSpec.describe "Answers", type: :request do
     end
   end
 
-  describe "POST /questions/:id" do
-    context "with valid parameters" do
-      it "creates a new answer" do
+  describe 'POST /questions/:id' do
+    context 'with valid parameters' do
+      it 'creates a new answer' do
         token = login_user
         post questions_url,
-             params: {question: valid_attributes }, headers: token, as: :json
+             params: { question: valid_attributes }, headers: token, as: :json
         expect(response).to be_successful
       end
     end
@@ -62,15 +62,15 @@ RSpec.describe "Answers", type: :request do
       it "answer_content blank with status 422" do
         token = login_user
         post questions_url,
-             params: {question: invalid_attributes }, headers: token, as: :json
+             params: { question: invalid_attributes }, headers: token, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it "answer_content blank message" do
+      it 'answer_content blank message' do
         token = login_user
         post questions_url,
-             params: {question: invalid_attributes }, headers: token, as: :json
-        expect(JSON.parse(response.body[ "messages"])).to include("can't be blank")
+             params: { question: invalid_attributes }, headers: token, as: :json
+        expect(JSON.parse(response.body)['error']['messages']).to include("Answers answer content can't be blank")
       end
     end
 

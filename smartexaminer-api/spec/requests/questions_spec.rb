@@ -19,7 +19,7 @@ RSpec.describe "/questions", type: :request do
     it "return all question created" do
       token = login_user
       get questions_url, headers: token, as: :json
-      expect(JSON.parse(response.body).count).to eq(2)
+      expect(JSON.parse(response.body)['question'].count).to eq(2)
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe "/questions", type: :request do
       question = create(:question)
       get question_url(question), headers: token,  as: :json
       %w[score feedback_correct feedback_incorrect].each do |attribute|
-        expect(JSON.parse(response.body)[attribute]).to eq(question.send(attribute))
+        expect(JSON.parse(response.body)['question'][attribute]).to eq(question.send(attribute))
       end
     end
   end
@@ -73,7 +73,7 @@ RSpec.describe "/questions", type: :request do
         token = login_user
         post questions_url,
              params: { question: question_without_content }, headers: token, as: :json
-        expect(JSON.parse(response.body)["messages"]).to include("Content can't be blank")
+        expect(JSON.parse(response.body)['error']['messages']).to include("Content can't be blank")
       end
     end
   end
@@ -91,7 +91,7 @@ RSpec.describe "/questions", type: :request do
       it "renders a JSON response with the question" do
         token = login_user
         question = create(:question)
-        patch questions_url(question),
+        patch question_url(question.id),
               params: { question: new_attributes }, headers: token, as: :json
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -104,7 +104,7 @@ RSpec.describe "/questions", type: :request do
         patch question_url(question),
               params: { question: question_without_content }, headers: token, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(JSON.parse(response.body)['error']['messages']).to include("Content can't be blank")
       end
     end
   end
