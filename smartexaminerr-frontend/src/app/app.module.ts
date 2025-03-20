@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
@@ -12,7 +12,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './components/home/header/header.component';
+import { CardBodyComponent, CardComponent, CardModule, DropdownComponent, DropdownModule, GridModule, HeaderModule, NavbarModule, NavComponent, NavModule } from '@coreui/angular';
+import { QuizComponent } from './components/quiz/quiz.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,20 +23,34 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
+    HeaderComponent,
+    QuizComponent,
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     MatFormFieldModule,
     MatCardModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HeaderModule,
+    GridModule,
+    NavbarModule,
+    NavComponent,
+    NavModule,
+    DropdownModule,
+    DropdownComponent,
+    CardModule,
+    CardBodyComponent,
+    CardComponent,
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync('noop'),
     AuthenticationService
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
