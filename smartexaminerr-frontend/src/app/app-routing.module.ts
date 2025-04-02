@@ -27,13 +27,11 @@ const routes: Routes = [
   },
   {
     component: DashboardComponent,
-    path:'dashboard',
-    canActivate: [authGuard]
+    path:'dashboard'
   },
   {
     component: QuizComponent,
-    path: 'quizzes',
-    canActivate: [authGuard]
+    path: 'quizzes'
   }
 ];
 
