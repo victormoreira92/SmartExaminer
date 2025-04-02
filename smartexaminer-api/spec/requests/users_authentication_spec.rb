@@ -5,7 +5,7 @@ RSpec.describe "Authentication", type: :request do
     context "with valid arguments" do
       it "creates a new user" do
         user = build(:user)
-        post sign_up_user_tokens_path, params: {name: user.name,
+        post sign_up_smartexaminer_v1_user_tokens_path, params: {name: user.name,
                                                 email: user.email,
                                                 password: user.password,
                                                 password_confirmation: user.password_confirmation},
@@ -17,7 +17,7 @@ RSpec.describe "Authentication", type: :request do
       %w[ name password password_confirmation email ].each do |argument|
         it "without #{argument}" do
           user = build(:user, argument => nil)
-          post sign_up_user_tokens_path, params: {name: user.name,
+          post sign_up_smartexaminer_v1_user_tokens_path, params: {name: user.name,
                                                   email: user.email,
                                                   password: user.password,
                                                   password_confirmation: user.password_confirmation},
@@ -34,7 +34,7 @@ RSpec.describe "Authentication", type: :request do
     context "with valid arguments" do
       it "signs in the user" do
         user = create(:user)
-        post sign_in_user_tokens_path, params: {
+        post sign_in_smartexaminer_v1_user_tokens_path, params: {
           email: user.email,
           password: user.password
         }, as: :json
@@ -44,7 +44,7 @@ RSpec.describe "Authentication", type: :request do
     context "with invalid arguments" do
       it "incorrect password" do
         user = create(:user)
-        post sign_in_user_tokens_path, params: {
+        post sign_in_smartexaminer_v1_user_tokens_path, params: {
           email: user.email,
           password: "111111111111"
         }, as: :json
@@ -53,7 +53,7 @@ RSpec.describe "Authentication", type: :request do
       end
       it "incorrect email" do
           user = create(:user)
-          post sign_in_user_tokens_path, params: {
+          post sign_in_smartexaminer_v1_user_tokens_path, params: {
             email: "email@email.com",
             password: user.password
           }, as: :json

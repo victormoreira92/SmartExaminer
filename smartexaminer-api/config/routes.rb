@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :questions
-  resources :quizzes
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
+  namespace :smartexaminer do
+    namespace :v1 do
+      resources :questions
+      resources :quizzes
+      devise_for :users
+      resources :users, only: [:index]
+    end
+  end
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-
-  resources :users, only: [:index]
 end

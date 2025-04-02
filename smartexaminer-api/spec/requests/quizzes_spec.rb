@@ -24,18 +24,18 @@ RSpec.describe "/quizzes", type: :request do
 
     describe 'GET /index' do
       before do
-        quiz = 2.times { create(:quiz) }
+        2.times { create(:quiz) }
       end
 
       it "renders a successful response " do
         token = login_user
-        get quizzes_url, headers: token, as: :json
+        get smartexaminer_v1_quizzes_url, headers: token, as: :json
         expect(response).to be_successful
       end
 
       it "return all quiz created" do
         token = login_user
-        get quizzes_url, headers: token, as: :json
+        get smartexaminer_v1_quizzes_url, headers: token, as: :json
         expect(JSON.parse(response.body).count).to eq(2)
       end
     end
@@ -44,14 +44,14 @@ RSpec.describe "/quizzes", type: :request do
       it "renders a successful response" do
         token = login_user
         quiz = create(:quiz)
-        get quiz_url(quiz), headers: token,  as: :json
+        get smartexaminer_v1_quiz_url(quiz), headers: token,  as: :json
         expect(response).to be_successful
       end
 
       it "confirms the returned quiz matches the created record" do
         token = login_user
         quiz = create(:quiz)
-        get quiz_url(quiz), headers: token,  as: :json
+        get smartexaminer_v1_quiz_url(quiz), headers: token,  as: :json
         %w[id title description].each do |attribute|
           expect(JSON.parse(response.body)[attribute]).to eq(quiz.send(attribute))
         end
@@ -63,14 +63,14 @@ RSpec.describe "/quizzes", type: :request do
         it "creates a new Quiz" do
           token = login_user
           expect {
-            post quizzes_url,
+            post smartexaminer_v1_quizzes_url,
                  params: { quiz: quiz }, headers: token, as: :json
           }.to change(Quiz, :count).by(1)
         end
 
         it "renders a JSON response with the new quiz" do
           token = login_user
-          post quizzes_url,
+          post smartexaminer_v1_quizzes_url,
                params: { quiz: quiz }, headers: token, as: :json
           expect(response).to have_http_status(:created)
           expect(response.content_type).to match(a_string_including("application/json"))
@@ -80,14 +80,14 @@ RSpec.describe "/quizzes", type: :request do
       context "with invalid parameters" do
         it "renders status unprocessable_entity" do
           token = login_user
-          post quizzes_url,
+          post smartexaminer_v1_quizzes_url,
                params: { quiz: quiz_without_title }, headers: token, as: :json
           expect(response).to have_http_status(:unprocessable_entity)
         end
 
         it "title blank" do
           token = login_user
-          post quizzes_url,
+          post smartexaminer_v1_quizzes_url,
                params: { quiz: quiz_without_title },
                headers: token, as: :json
           expect(JSON.parse(response.body)["messages"]).to include("Title can't be blank")
@@ -100,7 +100,7 @@ RSpec.describe "/quizzes", type: :request do
         it " access update return status success" do
           token = login_user
           quiz = create(:quiz)
-          patch quiz_url(quiz),
+          patch smartexaminer_v1_quiz_url(quiz),
                 params: { quiz: new_attributes }, headers: token, as: :json
           expect(response).to have_http_status(:success)
         end
@@ -108,7 +108,7 @@ RSpec.describe "/quizzes", type: :request do
         it "updates the requested quiz" do
           token = login_user
           quiz = create(:quiz)
-          patch quiz_url(quiz),
+          patch smartexaminer_v1_quiz_url(quiz),
                 params: { quiz: new_attributes }, headers: token, as: :json
           expect(JSON.parse(response.body)["quiz"]["title"]).to eq(new_attributes[:title])
         end
@@ -117,7 +117,7 @@ RSpec.describe "/quizzes", type: :request do
         it "renders status unprocessable_entity" do
           token = login_user
           quiz = create(:quiz)
-          patch quiz_url(quiz),
+          patch smartexaminer_v1_quiz_url(quiz),
                 params: { quiz: quiz_without_title }, headers: token, as: :json
           expect(response).to have_http_status(:unprocessable_entity)
         end
@@ -125,7 +125,7 @@ RSpec.describe "/quizzes", type: :request do
         it "title blank" do
           token = login_user
           quiz = create(:quiz)
-          patch quiz_url(quiz),
+          patch smartexaminer_v1_quiz_url(quiz),
 
                 params: { quiz: quiz_without_title },
                 headers: token, as: :json
@@ -138,10 +138,9 @@ RSpec.describe "/quizzes", type: :request do
       it "destroys the requested quiz" do
         quiz = create(:quiz)
         expect {
-          delete quiz_url(quiz), headers: token, as: :json
+          delete smartexaminer_v1_quiz_url(quiz), headers: token, as: :json
         }.to change(Quiz, :count).by(-1)
       end
     end
   end
 end
-

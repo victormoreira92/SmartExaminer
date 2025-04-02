@@ -36,14 +36,14 @@ RSpec.describe "Answers", type: :request do
   describe 'GET /questions' do
     it 'renders a successful response' do
       token = login_user
-      get questions_url, headers: token, as: :json
+      get smartexaminer_v1_questions_url, headers: token, as: :json
       expect(response).to be_successful
     end
 
     it "renders all answers of questions" do
       question.answers << answers
       token = login_user
-      get questions_url, headers: token, as: :json
+      get smartexaminer_v1_questions_url, headers: token, as: :json
       expect(response.body).to include(question.answers[0].answer_content)
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe "Answers", type: :request do
     context 'with valid parameters' do
       it 'creates a new answer' do
         token = login_user
-        post questions_url,
+        post smartexaminer_v1_questions_url,
              params: { question: valid_attributes }, headers: token, as: :json
         expect(response).to be_successful
       end
@@ -61,14 +61,14 @@ RSpec.describe "Answers", type: :request do
     context 'with invalid parameters' do
       it "answer_content blank with status 422" do
         token = login_user
-        post questions_url,
+        post smartexaminer_v1_questions_url,
              params: { question: invalid_attributes }, headers: token, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'answer_content blank message' do
         token = login_user
-        post questions_url,
+        post smartexaminer_v1_questions_url,
              params: { question: invalid_attributes }, headers: token, as: :json
         expect(JSON.parse(response.body)['error']['messages']).to include("Answers answer content can't be blank")
       end
@@ -89,7 +89,7 @@ RSpec.describe "Answers", type: :request do
         it "updates the requested answer" do
           question.answers << answers
           token = login_user
-          patch question_url(question),
+          patch smartexaminer_v1_question_url(question),
                params: {question: answer_atributes}, headers: token, as: :json
           expect(response).to have_http_status(:success)
           response_body = JSON.parse(response.body)
