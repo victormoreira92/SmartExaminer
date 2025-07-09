@@ -1,8 +1,8 @@
-import type { Quiz } from '../types/Quiz';
+import type { Test } from '../types/Test';
 import { api } from "./api";
 
-export const getQuiz = async (): Promise<Quiz[]> => {
-  const response = await api.get<Quiz[]>('/quizzes')
+export const getQuiz = async (): Promise<Test[]> => {
+  const response = await api.get<Test[]>('/quizzes')
   console.log(response.data)
   return response.data;
 }
