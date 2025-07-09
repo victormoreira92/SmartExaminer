@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  skip_before_action :verify_authenticity_token, raise: false
-  before_action :authenticate_devise_api_token!
+  # before_action :configure_permitted_parameters, if: :devise_controller?
+  # skip_before_action :verify_authenticity_token, raise: false
+  # before_action :authenticate_devise_api_token!
 
   def current_user
     @current_user = current_devise_api_user
