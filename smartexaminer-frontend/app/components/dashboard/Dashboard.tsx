@@ -1,5 +1,5 @@
-import Panel from "~/dashboard/panel";
-import Sidebar from "~/dashboard/sidebar";
+import Panel from "~/components/dashboard/panel";
+import Sidebar from "~/components/dashboard/sidebar";
 
 
 export default function Dashboard(){

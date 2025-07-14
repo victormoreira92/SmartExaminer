@@ -2,12 +2,12 @@ import { Plus } from "lucide-react";
 import Card from "./card";
 import { useEffect, useState } from "react";
 import type { Test } from "~/types/Test";
-import { getQuiz } from "~/services/quizService";
+import { getTest } from "~/services/testService";
 
 export default function Panel(){
     const [tests, setTests] = useState<Test[]>([]);
     useEffect(() => {
-      getQuiz().then(setTests).catch(console.error)
+      getTest().then(setTests).catch(console.error)
     }, []
   )
   return (
@@ -25,6 +25,7 @@ export default function Panel(){
             title={test.title}
             description={test.description}
             created_at={test.created_at}
+            categories={test.categories.map((category)=>(category.category_name))}
           />        
         ))}  
       </div>

@@ -1,6 +1,6 @@
 import { ChartPie, Ellipsis } from "lucide-react";
 
-export default function Card({id, description, title, created_at}){
+export default function Card({id, description, title, created_at, categories}){
   const dataFormatada = new Date(created_at).toLocaleDateString('USA');
 
   return (
@@ -29,7 +29,7 @@ export default function Card({id, description, title, created_at}){
           <p className="flex gap-1"><ChartPie /> avg. score | Results (0)</p>
           <p></p>
         </div>
-        <span className="border border-gray-400 text-center py-1 px-2 text-[14px] hover:text-gray-700 font-bold">Sem Categoria</span>
+        <span className="border border-gray-400 text-center py-1 px-2 text-[14px] hover:text-gray-700 font-bold">{categories}</span>
       </div>
     </div>
   )
