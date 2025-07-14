@@ -1,12 +1,11 @@
-import Sidebar from "~/components/dashboard/sidebar";
+import SidebarDashboard from "../dashboard/sidebar";
+import SidebarTest from "./SidebarTest";
 
 export default function Test(){
   return (
     <div className="w-full flex min-h-screen">
-      <Sidebar />
-      <div>
-        
-      </div>
+      <SidebarDashboard />
+      <SidebarTest />
     </div>
   )
 }

@@ -36,3 +36,5 @@ smartexaminer-api/tmp/storage/*
 smartexaminer-api/node_modules
 /.idea
 /.idea/*
+
+smartexaminer-frontend/.vscode
