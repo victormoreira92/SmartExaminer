@@ -6,3 +6,14 @@ export const getTest = async (): Promise<Test[]> => {
   console.log(response.data)
   return response.data;
 }
+
+export const showTest = async (id: any): Promise<Test> => {
+  try {
+    const response = await api.get<Test>(`/tests/${id}`);
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error)
+    throw new Error(`Erro ao buscar teste com ID ${id}:`);
+  }
+};

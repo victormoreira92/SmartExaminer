@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 import Card from "./card";
 import { useEffect, useState } from "react";
 import type { Test } from "~/types/Test";
-import { getTest } from "~/services/testService";
+import { getTest, showTest } from "~/services/testService";
 
 export default function Panel(){
     const [tests, setTests] = useState<Test[]>([]);
@@ -11,7 +11,7 @@ export default function Panel(){
     }, []
   )
   return (
-    <div className="bg-gray-100 w-full p-6">
+    <div className="bg-gray-100 w-full p-6" >
       <div className="flex justify-between items-center">
         <h3 className="text-1xl text-center text-black">Meus Testes ({tests.length})</h3>
         <button className="bg-blue-400 flex justify-center text-white p-2 text-sm font-bold">
