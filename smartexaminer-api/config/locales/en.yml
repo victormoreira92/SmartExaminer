@@ -39,6 +39,12 @@ en:
     attributes:
       user:
         password_confirmation: "Password Confirmation"
+      test:
+        status_test:
+          not_started: "Not started"
+          in_progress: "In Progress"
+          finished: "Finished"
+          reviewed: "Reviewed"
       answer:
         type_question:
           single_choice: "Single Choice"

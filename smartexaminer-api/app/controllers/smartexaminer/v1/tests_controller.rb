@@ -12,7 +12,14 @@ module Smartexaminer
 
       # GET /tests/1
       def show
-        render json: @test
+        render json: {
+          title: @test.title,
+          description: @test.description,
+          updated: @test.updated_at,
+          created: @test.created_at,
+          categories: @test.categories,
+          status: I18n.t("activerecord.attributes.test.status_test.#{@test.status_test}")
+        }
       end
 
       # POST /tests
