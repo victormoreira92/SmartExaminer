@@ -3,7 +3,7 @@ module Smartexaminer
     class CategoriesController < ApplicationController
       def index
         @categories = Category.all
-        render json: @categories
+        render json: @categories.order(created_at: :desc)
       end
 
       def create

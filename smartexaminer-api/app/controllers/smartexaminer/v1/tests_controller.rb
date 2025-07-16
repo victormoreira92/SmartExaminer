@@ -31,7 +31,6 @@ module Smartexaminer
             message: I18n.t('activerecord.success.messages.create', model: Test.model_name.human)
           }, status: :created
         else
-          binding.pry
           render json: {
             messages: @test.errors.full_messages
           }, status: :unprocessable_entity
