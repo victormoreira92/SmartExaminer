@@ -7,7 +7,8 @@ module Smartexaminer
       def index
         @tests = Test.all
 
-        render json: @tests.as_json(include: :categories)
+        render json: @tests.order(created_at: :desc)
+                           .as_json(include: :categories)
       end
 
       # GET /tests/1

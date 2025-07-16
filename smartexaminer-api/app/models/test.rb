@@ -12,7 +12,7 @@
 class Test < ApplicationRecord
   before_validation :set_status_test
   validates :title, :status_test, presence: true
-  has_many :tests_categories
+  has_many :tests_categories, dependent: :destroy
   has_many :categories, through: :tests_categories
 
   enum status_test: {
