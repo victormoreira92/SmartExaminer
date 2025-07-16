@@ -1,12 +1,17 @@
-import { Card } from "flowbite-react";
-import { useState } from "react";
+import { Card, Select } from "flowbite-react";
+import { useEffect, useState } from "react";
 import { createTest } from "~/services/testService";
 import type { Test } from "~/types/Test";
 import CreateCategory from "../category/CreateCategory";
+import type { Category } from "~/types/Category";
+import { getCategories } from "~/services/categoryService";
 
 export default function CreateTest(){
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [category_ids, setCategory_ids] = useState<number | null>(null);
+
 
   const onSubmitTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,13 +19,23 @@ export default function CreateTest(){
       return null;
     }
     const testData = {
-      title,
-      description,
-    };
+      test: {
+        title,
+        description,
+        category_ids
+      }
+    }
     createTest(testData);
     setTitle('');
     setDescription('');
   };
+
+  useEffect(() => {
+    getCategories()
+      .then(setCategories)
+      .catch(console.error);
+  }, []);
+
   return (
     <Card>
       <div className="text-black">
@@ -35,7 +50,22 @@ export default function CreateTest(){
           placeholder="Digite o título da tarefa"
           className="border border-gray-100 p-1 bg-white rounded-md"
       ></input>
-      <CreateCategory />
+      <CreateCategory 
+        onCreated={ async () => {
+          const updatedCategories = await getCategories();
+            setCategories(updatedCategories);
+        }}
+      />
+      <Select
+        onChange={(e) => setCategory_ids(Number(e.target.value))}
+      >
+        {categories.map((category, index) => (
+        
+         <option selected={index === 0} key={category.id} value={category.id}>
+            {category.category_name}
+         </option>
+        ))}
+      </Select>
       <input
         type="text"
         value={description}

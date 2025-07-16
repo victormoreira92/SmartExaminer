@@ -11,3 +11,9 @@ export const createCategory = async (categoryData: any): Promise<Category> => {
     throw new Error('Erro ao criar categoria');
   }
 };
+
+export const getCategories = async (): Promise<Category[]> => {
+  const response = await api.get<Category[]>('/categories')
+  console.log(response.data)
+  return response.data;
+}

@@ -9,3 +9,9 @@ export interface Test {
   updated_at: Date,
   categories: Category[]
 }
+
+export interface TestResponse{
+  title: string,
+  description: string,
+  category_ids: number
+}

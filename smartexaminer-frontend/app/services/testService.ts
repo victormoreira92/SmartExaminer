@@ -1,4 +1,4 @@
-import type { Test } from '../types/Test';
+import type { Test, TestResponse } from '../types/Test';
 import { api } from "./api";
 
 export const getTest = async (): Promise<Test[]> => {
@@ -18,9 +18,10 @@ export const showTest = async (id: any): Promise<Test> => {
   }
 };
 
-export const createTest = async (testData: any): Promise<Test> => {
+export const createTest = async (testData: any): Promise<TestResponse> => {
   try {
-    const response = await api.post<Test>('/tests', testData);
+    console.log(testData)
+    const response = await api.post<TestResponse>('/tests', testData);
     console.log(response.data);
     return response.data;
   } catch (error) {

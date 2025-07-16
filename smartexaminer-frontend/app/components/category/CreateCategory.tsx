@@ -1,8 +1,11 @@
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader, TextInput } from "flowbite-react";
 import { useState } from "react";
-import { createCategory } from "~/services/categoryService";
+import { createCategory, getCategories } from "~/services/categoryService";
+import type { Category } from "~/types/Category";
 
-export default function CreateCategory(){
+export default function CreateCategory(
+    {onCreated,}: {onCreated: () => void;}
+){
   const [openModal, setOpenModal] = useState(false);
   const [category_name, setCategory_name] = useState('');
 
@@ -18,6 +21,7 @@ export default function CreateCategory(){
       createCategory(dataCategory);
       setCategory_name('');
       setOpenModal(false)
+      onCreated()
     };
   return (
     <>
