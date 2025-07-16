@@ -25,15 +25,15 @@ module Smartexaminer
       # POST /tests
       def create
         @test = Test.new(test_params)
-
         if @test.save
           render json: {
             test: @test,
-            message: I18n.t('activerecord.messages.created', model: Test.model_name.human)
+            message: I18n.t('activerecord.success.messages.create', model: Test.model_name.human)
           }, status: :created
         else
+          binding.pry
           render json: {
-                   messages: @test.errors.full_messages
+            messages: @test.errors.full_messages
           }, status: :unprocessable_entity
         end
       end

@@ -24,7 +24,7 @@ module Smartexaminer
       private
       # Only allow a list of trusted parameters through.
       def category_params
-        params.require(:test).permit(:category_name)
+        params.require(:category).permit(:category_name)
       end
     end
   end

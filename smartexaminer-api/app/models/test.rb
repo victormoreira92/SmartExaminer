@@ -10,8 +10,8 @@
 #  updated_at  :datetime         not null
 #
 class Test < ApplicationRecord
+  before_validation :set_status_test
   validates :title, :status_test, presence: true
-  before_commit :set_status_test
   has_many :tests_categories
   has_many :categories, through: :tests_categories
 
@@ -23,6 +23,6 @@ class Test < ApplicationRecord
   }
 
   def set_status_test
-    status_test = :not_started
+    self.status_test = :not_started
   end
 end
