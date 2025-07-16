@@ -20,12 +20,27 @@ export const showTest = async (id: any): Promise<Test> => {
 
 export const createTest = async (testData: any): Promise<TestResponse> => {
   try {
-    console.log(testData)
     const response = await api.post<TestResponse>('/tests', testData);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Erro ao criar teste:', error);
     throw new Error('Erro ao criar teste');
+  }
+};
+
+export const updateTest = async (
+  id: number,
+  data: { test: { title: string; description: string; category_ids: number } }
+) => {
+  return api.put(`/tests/${id}`, data);
+};
+
+export const deleteTest = async (id: number) => {
+  try {
+    const response = await api.delete(`/tests/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Erro ao deletar teste com ID ${id}:`, error);
+    throw error;
   }
 };
