@@ -17,3 +17,14 @@ export const showTest = async (id: any): Promise<Test> => {
     throw new Error(`Erro ao buscar teste com ID ${id}:`);
   }
 };
+
+export const createTest = async (testData: any): Promise<Test> => {
+  try {
+    const response = await api.post<Test>('/tests', testData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao criar teste:', error);
+    throw new Error('Erro ao criar teste');
+  }
+};
