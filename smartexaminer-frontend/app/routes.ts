@@ -9,4 +9,7 @@ export default [
     route('basic-settings', 'components/test/BasicSettings.tsx'),
     route('question-manager', 'components/test/QuestionManager.tsx')
   ]),
+  route('questions', 'components/question/questions/BankQuestion.tsx'),
+  route('question/:id', 'components/question/updateQuestion/UpdateQuestion.tsx'),
+  route('new-question', 'components/question/createQuestion/CreateQuestion.tsx')
 ] satisfies RouteConfig;

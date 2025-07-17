@@ -7,16 +7,17 @@ module Smartexaminer
       def index
         @questions = Question.all
 
-        render json: {
-          question: @questions.as_json(include: :answers)
-        }
+        render json: @questions.order(created_at: :desc)
+                               .as_json(include: :answers)
+      end
+
+      def enums_question
+        render json: Question.type_answers.map { |key, value| [value, key.humanize.titleize] }
       end
 
       # GET /questions/1
       def show
-        render json: {
-          question: @question.as_json(include: :answers)
-        }
+        render json: @question.as_json(include: :answers)
       end
 
       # POST /questions
