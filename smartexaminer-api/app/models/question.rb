@@ -19,8 +19,7 @@ class Question < ApplicationRecord
     short_answer: 3,
     essay_answer: 4
   }
-
-  belongs_to :quiz, optional: true
+  has_many :alternatives, dependent: :destroy
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers
 

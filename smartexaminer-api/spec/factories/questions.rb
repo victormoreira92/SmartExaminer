@@ -18,6 +18,5 @@ FactoryBot.define do
     feedback_correct { Faker::Lorem.paragraph(sentence_count: 20) }
     feedback_incorrect { Faker::Lorem.paragraph(sentence_count: 20) }
     type_answer { 0 }
-    association :quiz
   end
 end
