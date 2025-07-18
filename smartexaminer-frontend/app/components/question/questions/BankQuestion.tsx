@@ -2,16 +2,18 @@ import SidebarDashboard from "~/components/dashboard/sidebar";
 import QuestionTable from "./QuestionTable";
 import type { Question } from "~/types/Question";
 import { useEffect, useState } from "react";
-import { getQuestions } from "~/services/questionService";
+import { enumQuestions, getQuestions } from "~/services/questionService";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router";
 
 export default function BankQuestion(){
   const navigate = useNavigate();
   const [questions, setQuestions] = useState<Question[]>([]);
-      useEffect(() => {
-        getQuestions()
-        .then(setQuestions).catch(console.error)
+  const [enums, setEnums] = useState([]);
+
+  useEffect(() => {
+    getQuestions()
+      .then(setQuestions).catch(console.error)
       }, []
     )
   return (
