@@ -21,7 +21,7 @@ class Question < ApplicationRecord
   }
   has_many :alternatives, dependent: :destroy
   has_many :answers, dependent: :destroy
-  accepts_nested_attributes_for :answers
+  accepts_nested_attributes_for :alternatives, allow_destroy: true
 
   validates :content, presence: true
 end

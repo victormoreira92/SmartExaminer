@@ -26,7 +26,6 @@ export default function EditorQuestion({ initialContent = '<p>Comece a escrever.
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      console.log('HTML atualizado:', html); // Depuração
       if (onContentChange) {
         onContentChange(html);
       }

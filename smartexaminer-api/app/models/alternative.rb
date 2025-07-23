@@ -21,6 +21,6 @@
 class Alternative < ApplicationRecord
   belongs_to :question
 
-  validates :content, :is_correct, :alternative_order, presence: true
+  validates :content, :alternative_order, presence: true
   validates_numericality_of :alternative_order, only_integer: true, greater_than_or_equal_to: 0
 end

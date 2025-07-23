@@ -82,7 +82,7 @@ module Smartexaminer
             :feedback_correct,
             :feedback_incorrect,
             :type_answer,
-            answers_attributes: [:id, :answer_content, :correct]
+            alternatives_attributes: %i[content is_correct alternative_order _destroy]
           )
         end
     end

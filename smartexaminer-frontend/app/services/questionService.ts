@@ -48,6 +48,5 @@ export const deleteQuestion = async (id: number) => {
 
 export const enumQuestions = async (): Promise<any> => {
   const response = await api.get<any>('/questions/enums_question')
-  console.log(response.data)
   return response.data;
 }
