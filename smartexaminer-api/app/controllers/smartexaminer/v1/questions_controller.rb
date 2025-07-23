@@ -8,7 +8,7 @@ module Smartexaminer
         @questions = Question.all
 
         render json: @questions.order(created_at: :desc)
-                               .as_json(include: :answers)
+                               .as_json(include: :alternatives)
       end
 
       def enums_question
