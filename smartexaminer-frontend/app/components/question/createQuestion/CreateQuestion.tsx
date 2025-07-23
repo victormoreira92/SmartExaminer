@@ -69,12 +69,6 @@ export default function CreateQuestion() {
     //navigate('/questions')
   };
 
-  useEffect(() => {
-    enumQuestions()
-      .then(setEnums)
-      .catch(console.error);
-    }, []);
-
   return (
     <div className="w-full flex min-h-screen">
       <SidebarDashboard />

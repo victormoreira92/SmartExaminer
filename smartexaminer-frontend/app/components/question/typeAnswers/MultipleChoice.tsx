@@ -58,22 +58,30 @@ export default function MultipleChoice({setAlternatives}){
       <div className="flex py-1 gap-2" key={index}>        {
           index ? 
           <div className="flex flex-col justify-between">
-            <div className="flex items-center gap-2 py-2">
-              <Checkbox      
-              name="correct"
-              onChange={() => handleCheckbox(index) } 
-              value="true" />
-              <Label htmlFor={`correct-${index}`} className="flex">                  
-                Set as correct
-              </Label>
-              <Button onClick={() => removeFormFields(index)} className="bg-transparent hover:bg-transparent">
-                <Trash2Icon className="text-gray-600 hover:text-red-500" />
-              </Button>
-            </div>
-            <EditorQuestion 
-              content={contents[index]} // conteúdo atual
-              onContentChange={(value) => handleContentChange(index, value)}
-            />
+            <div className="flex w-full gap-2 py-2">
+              <div><span className="font-bold  text-[14px] uppercase text-gray border rounded-full p-2">
+              {String.fromCharCode(96 + index)}.
+              </span></div>
+              <div className="w-full flex flex-col">
+                <div className="flex items-center gap-1">
+                  <Checkbox      
+                    name="correct"
+                    onChange={() => handleCheckbox(index) } 
+                    value="true" />
+                  <Label htmlFor={`correct-${index}`} className="flex">                  
+                    Set as correct
+                  </Label>
+                  <Button onClick={() => removeFormFields(index)} className="bg-transparent hover:bg-transparent">
+                    <Trash2Icon className="text-gray-600 hover:text-red-500" />
+                  </Button>
+                </div>
+                <EditorQuestion 
+                content={contents[index]} // conteúdo atual
+                onContentChange={(value) => handleContentChange(index, value)}
+                />
+              </div>
+          </div>
+              
             
           </div>
           

@@ -24,11 +24,16 @@ export default function QuestionTable({question}){
           </div>
         </div>
         <div
-            className="prose max-h-40 overflow-y-auto border border-gray-300 p-2 rounded-md"
+            className="prose max-h-40 overflow-y-auto border-gray-300 p-2 rounded-md"
             dangerouslySetInnerHTML={{__html: sanitizedContent}}
         />
         <div>
-          <p>Alternatives</p>
+          <p>{question.alternatives.map((aleternative) => (
+            <div>
+              <p>{aleternative.content}</p>
+              <p>{aleternative.is_correct}</p>
+            </div>
+          ))}</p>
         </div>
         <div>
           <p>Created: {dataFormatada}</p>
