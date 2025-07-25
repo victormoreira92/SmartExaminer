@@ -64,12 +64,6 @@ export default function UpdateQuestion() {
     //navigate('/questions')
   };
 
-  useEffect(() => {
-      enumQuestions()
-        .then(setEnums)
-        .catch(console.error);
-      }, []);
-
   const renderComponentByButton = () => {
       switch (type_answer) {
         case 'multi_choice':
