@@ -1,8 +1,13 @@
-import { Card, Select } from "flowbite-react";
+import { Card, Button } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { enumQuestions, showQuestion, updateQuestion } from "~/services/questionService";
 import EditorQuestion from "../createQuestion/EditorQuestion";
+import MultipleChoiceEditor from "./MultipleChoiceEditor";
+import TrueFalseEditor from "./TrueFalseEditor";
+import ShortAnswerEditor from "./ShortAnswerEditor";
+import { CheckCheckIcon, ListTodoIcon, TextCursorInputIcon, TextIcon } from "lucide-react";
+
 
 export default function UpdateQuestion() {
   const { id } = useParams(); 
@@ -10,8 +15,9 @@ export default function UpdateQuestion() {
   const [score, setScore] = useState<number>(0);  
   const [feedback_incorrect, setFeedback_incorrect] = useState('');
   const [feedback_correct, setFeedback_correct] = useState('');
-  const [type_answer, setType_answer] = useState<number>(0);
+  const [type_answer, setType_answer] = useState('');
   const [enums, setEnums] = useState([]);
+  const [alternatives_attributes, setAlternatives] = useState([]);
   const navigate = useNavigate();
 
 
@@ -25,6 +31,7 @@ export default function UpdateQuestion() {
         setFeedback_incorrect(data.feedback_incorrect);
         setFeedback_correct(data.feedback_correct);
         setType_answer(data.type_answer)
+        setAlternatives(data.alternatives || []);
       })
       .catch(console.error);
   }, [id]);
@@ -49,7 +56,8 @@ export default function UpdateQuestion() {
         feedback_incorrect,
         feedback_correct,
         type_answer,
-        score
+        score, 
+        alternatives_attributes
       }
     };
     updateQuestion(Number(id), updatedQuestion);
@@ -62,6 +70,20 @@ export default function UpdateQuestion() {
         .catch(console.error);
       }, []);
 
+  const renderComponentByButton = () => {
+      console.log(type_answer)
+      switch (type_answer) {
+        case 'multi_choice':
+          return <MultipleChoiceEditor alternatives={alternatives_attributes} setAlternatives={setAlternatives} />
+        case 'true_false':
+          return <TrueFalseEditor alternative={alternatives_attributes} setAlternatives={setAlternatives} />
+        case 'short_answer':
+          return <ShortAnswerEditor alternative={alternatives_attributes} setAlternatives={setAlternatives} />
+        case 'essay_text':
+          return <p>Escolha um componente para visualizar</p>
+      }
+    }
+
   return (
     <Card className="p-6 w-full">
       <div className="w-full text-black">
@@ -69,18 +91,33 @@ export default function UpdateQuestion() {
         <form onSubmit={onSubmitForm} className="flex flex-col gap-4">
           <div>
             <label className="block mb-1 font-medium">Tipo de Resposta</label>
-            <Select
-              value={type_answer}
-              onChange={(e) => setType_answer(Number(e.target.value))}
-              required
-            >
-              <option value={0} disabled>Selecione um tipo</option>
-              {enums.map((enumOption) => (
-                <option key={enumOption[0]} value={enumOption[0]}>
-                  {enumOption[1]}
-                </option>
-              ))}
-            </Select>
+            <div>
+              <label className="block mb-1 font-medium">Tipo de Resposta</label>
+              <div className="flex gap-4 justify-between py-3">
+                <Button onClick={()=>{
+                                setType_answer('multi_choice')
+                                }} className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                  <ListTodoIcon className="text-4xl text-black px-1" /> 
+                  Multiple Choice
+                </Button>
+                <Button onClick={()=>{
+                    setType_answer('true_false')
+}} className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                  <CheckCheckIcon className="text-4xl text-black px-1" /> 
+                  True or False
+                </Button>
+                <Button onClick={()=>{
+                  setType_answer('short_answer')}}  className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                  <TextCursorInputIcon className="text-4xl text-black px-1" />
+                  Short Answer
+                </Button>
+                <Button onClick={()=>{
+                  setType_answer('essay_text')}} className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                  <TextIcon className="text-4xl text-black px-1" />
+                  Essay
+                </Button>
+              </div>
+            </div>
           </div>
 
           <div>
@@ -91,6 +128,10 @@ export default function UpdateQuestion() {
               onContentChange={handleContentChange}
             />
           </div>
+          <div>
+            <label className="block mb-1 font-medium">Answers</label>
+              {renderComponente()}
+            </div>
 
           <div>
             <label className="block mb-1 font-medium">Pontuação</label>
