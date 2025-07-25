@@ -71,7 +71,6 @@ export default function UpdateQuestion() {
       }, []);
 
   const renderComponentByButton = () => {
-      console.log(type_answer)
       switch (type_answer) {
         case 'multi_choice':
           return <MultipleChoiceEditor alternatives={alternatives_attributes} setAlternatives={setAlternatives} />
@@ -92,27 +91,28 @@ export default function UpdateQuestion() {
           <div>
             <label className="block mb-1 font-medium">Tipo de Resposta</label>
             <div>
-              <label className="block mb-1 font-medium">Tipo de Resposta</label>
               <div className="flex gap-4 justify-between py-3">
                 <Button onClick={()=>{
                                 setType_answer('multi_choice')
-                                }} className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                                }} 
+                  className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'multi_choice' ? 'border border-3 border-primary-300' : ''}`}>
                   <ListTodoIcon className="text-4xl text-black px-1" /> 
                   Multiple Choice
                 </Button>
                 <Button onClick={()=>{
-                    setType_answer('true_false')
-}} className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                    setType_answer('true_false')}}
+                    className={`${type_answer =='true_or_false' ? 'border border-3 border-primary-300' : ''} p-3  h-1/8 text-black  text-[12px] bg-gray-200 hover:bg-gray-300 `}>
                   <CheckCheckIcon className="text-4xl text-black px-1" /> 
                   True or False
                 </Button>
                 <Button onClick={()=>{
-                  setType_answer('short_answer')}}  className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                  setType_answer('short_answer')}}  
+                  className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'short_answer' ? 'border border-3 border-primary-300' : ''}`}>
                   <TextCursorInputIcon className="text-4xl text-black px-1" />
                   Short Answer
                 </Button>
                 <Button onClick={()=>{
-                  setType_answer('essay_text')}} className="p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300">
+                  setType_answer('essay_text')}} className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'border border-3 border-primary-300' ? 'border-primary-300' : ''}`}>
                   <TextIcon className="text-4xl text-black px-1" />
                   Essay
                 </Button>
@@ -130,7 +130,7 @@ export default function UpdateQuestion() {
           </div>
           <div>
             <label className="block mb-1 font-medium">Answers</label>
-              {renderComponente()}
+              {renderComponentByButton()}
             </div>
 
           <div>
