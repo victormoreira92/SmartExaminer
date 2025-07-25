@@ -61,7 +61,7 @@ export default function UpdateQuestion() {
       }
     };
     updateQuestion(Number(id), updatedQuestion);
-    navigate('/questions')
+    //navigate('/questions')
   };
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function UpdateQuestion() {
       switch (type_answer) {
         case 'multi_choice':
           return <MultipleChoiceEditor alternatives={alternatives_attributes} setAlternatives={setAlternatives} />
-        case 'true_false':
+        case 'true_or_false':
           return <TrueFalseEditor alternative={alternatives_attributes} setAlternatives={setAlternatives} />
         case 'short_answer':
           return <ShortAnswerEditor alternative={alternatives_attributes} setAlternatives={setAlternatives} />
