@@ -1,14 +1,35 @@
 import { Label, Radio, TextInput } from "flowbite-react";
 import { useState, useEffect } from "react";
 
-export default function TrueFalseEditor({ alternative, setAlternatives }: { alternative: any[], setAlternatives: any }) {
+export default function TrueFalseEditor({ alternative, setAlternatives, type_answer }: { alternative: any[], setAlternatives: any, type_answer: string }) {
   const [selectedCorrectIndex, setSelectedCorrectIndex] = useState(0);
-  const [contents, setContents] = useState(
-    alternative.map((alt, index) => ({
-      id: alt.id,
-      is_correct: alt.is_correct,
-      content: alt.content,
-    }))
+  const [contents, setContents] = useState(()=>{
+      if (alternative.length > 0 && type_answer == 'true_or_false'){
+        const newAlternative = alternative.map((alt, index) => ({
+          id: alt.id,
+          content: alt.content ?? '',
+          is_correct: alt.is_correct ?? true, // Short answers are typically correct
+          alternative_order: alt.alternative_order ?? index,
+          _destroy: false
+        }))
+        console.log(alternative)
+        return [...newAlternative]
+      }else{
+        const newAlternative = alternative.map((alt, index) => ({
+          id: alt.id,
+          content: alt.content ?? '',
+          is_correct: alt.is_correct ?? true, // Short answers are typically correct
+          alternative_order: alt.alternative_order ?? index,
+          _destroy: true
+        }))
+        const extraAlternatives = [
+            { content: '', is_correct: true, _destroy: false },
+            { content: '', is_correct: false, _destroy: false }
+        ];
+        return [...newAlternative, ...extraAlternatives]
+      }
+  }
+
   );
 
   // Atualiza alternativas sempre que conteúdo ou alternativa correta mudar
@@ -18,7 +39,8 @@ export default function TrueFalseEditor({ alternative, setAlternatives }: { alte
       id: alt.id,
       is_correct: selectedCorrectIndex === index,
       content: alt.content,
-      alternative_order: index
+      alternative_order: index,
+      _destroy: alt._destroy
      }
     ));
     setAlternatives(alternatives);
@@ -39,6 +61,7 @@ export default function TrueFalseEditor({ alternative, setAlternatives }: { alte
   return (
     <div className="flex flex-col gap-4">
       {contents.map((alt, index) => (
+        !alt._destroy && (
         <div key={index}>
           <div className="flex items-center gap-2">
             <Radio
@@ -60,7 +83,7 @@ export default function TrueFalseEditor({ alternative, setAlternatives }: { alte
             placeholder={`Alternative ${index + 1}`}
           />
         </div>
-      ))}
+      )))}
     </div>
   );
 }

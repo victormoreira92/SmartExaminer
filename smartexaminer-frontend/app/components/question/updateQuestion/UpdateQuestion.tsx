@@ -7,6 +7,8 @@ import MultipleChoiceEditor from "./MultipleChoiceEditor";
 import TrueFalseEditor from "./TrueFalseEditor";
 import ShortAnswerEditor from "./ShortAnswerEditor";
 import { CheckCheckIcon, ListTodoIcon, TextCursorInputIcon, TextIcon } from "lucide-react";
+import EssayAnswer from "../typeAnswers/EssayAnswer";
+import EssayAnswerEditor from "./EssayAnswerEditor";
 
 
 export default function UpdateQuestion() {
@@ -16,9 +18,12 @@ export default function UpdateQuestion() {
   const [feedback_incorrect, setFeedback_incorrect] = useState('');
   const [feedback_correct, setFeedback_correct] = useState('');
   const [type_answer, setType_answer] = useState('');
+  const [old_type_answer, setOld_type_answer] = useState('');
   const [enums, setEnums] = useState([]);
-  const [alternatives_attributes, setAlternatives] = useState([]);
+  const [alternatives_attributes, setAlternativesAtributes] = useState([]);
   const navigate = useNavigate();
+  let type_answer_data = ''
+
 
 
   // Carrega o teste existente
@@ -31,7 +36,9 @@ export default function UpdateQuestion() {
         setFeedback_incorrect(data.feedback_incorrect);
         setFeedback_correct(data.feedback_correct);
         setType_answer(data.type_answer)
-        setAlternatives(data.alternatives || []);
+        setOld_type_answer(data.type_answer)
+        setAlternativesAtributes(data.alternatives || []);
+        type_answer_data = data.type_answer
       })
       .catch(console.error);
   }, [id]);
@@ -50,6 +57,8 @@ export default function UpdateQuestion() {
     if (!content || !feedback_incorrect || !feedback_correct || !type_answer) {
       return null;
     }
+    console.log(type_answer != old_type_answer)
+    
     const updatedQuestion = {
       question: {
         content,
@@ -64,16 +73,47 @@ export default function UpdateQuestion() {
     //navigate('/questions')
   };
 
+
+  // //const handleTypeAnswerChange = (newType: string) => {
+  //   console.log(newType === old_type_answer)
+  //   switch (newType) {
+  //       case old_type_answer:
+  //         setAlternatives(alternatives_attributes)
+  //         break
+  //       case 'true_or_false':
+  //         setAlternatives([{ content: '', is_correct: true }, { content: '', is_correct: false }])
+  //         break
+  //       case 'short_answer':
+  //         setAlternatives([{ content: '', is_correct: false }, { content: '', is_correct: false }])
+  //         break
+  //       case 'essay_text':
+  //         setAlternatives([])
+  //         break
+  //       case 'multi_choice':
+  //         setAlternatives([{ content: '', is_correct: true }, { content: '', is_correct: false }, { content: '', is_correct: false }])
+  //         break
+  //     }
+  // };
+
   const renderComponentByButton = () => {
       switch (type_answer) {
         case 'multi_choice':
-          return <MultipleChoiceEditor alternatives={alternatives_attributes} setAlternatives={setAlternatives} />
+          return <MultipleChoiceEditor  
+                  alternatives={alternatives_attributes} 
+                  setAlternatives={setAlternativesAtributes}
+                  type_answer={old_type_answer} />
         case 'true_or_false':
-          return <TrueFalseEditor alternative={alternatives_attributes} setAlternatives={setAlternatives} />
+          return <TrueFalseEditor
+                  type_answer={old_type_answer}
+                  alternative={alternatives_attributes} 
+                  setAlternatives={setAlternativesAtributes} />
         case 'short_answer':
-          return <ShortAnswerEditor alternative={alternatives_attributes} setAlternatives={setAlternatives} />
-        case 'essay_text':
-          return <p>Escolha um componente para visualizar</p>
+          return <ShortAnswerEditor 
+              type_answer={old_type_answer}
+              alternative={alternatives_attributes} 
+              setAlternatives={setAlternativesAtributes} />
+        case 'essay_answer':
+          return <EssayAnswerEditor type_answer={old_type_answer} alternatives={alternatives_attributes} />
       }
     }
 
@@ -86,27 +126,27 @@ export default function UpdateQuestion() {
             <label className="block mb-1 font-medium">Tipo de Resposta</label>
             <div>
               <div className="flex gap-4 justify-between py-3">
-                <Button onClick={()=>{
-                                setType_answer('multi_choice')
-                                }} 
+                <Button
+                  onClick={() => setType_answer('multi_choice')}
                   className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'multi_choice' ? 'border border-3 border-primary-300' : ''}`}>
                   <ListTodoIcon className="text-4xl text-black px-1" /> 
                   Multiple Choice
                 </Button>
-                <Button onClick={()=>{
-                    setType_answer('true_false')}}
-                    className={`${type_answer =='true_or_false' ? 'border border-3 border-primary-300' : ''} p-3  h-1/8 text-black  text-[12px] bg-gray-200 hover:bg-gray-300 `}>
+                <Button
+                  onClick={()=>setType_answer('true_or_false')}
+                  className={`${type_answer =='true_or_false' ? 'border border-3 border-primary-300' : ''} p-3  h-1/8 text-black  text-[12px] bg-gray-200 hover:bg-gray-300 `}>
                   <CheckCheckIcon className="text-4xl text-black px-1" /> 
                   True or False
                 </Button>
-                <Button onClick={()=>{
-                  setType_answer('short_answer')}}  
+                <Button
+                  onClick={()=> setType_answer('short_answer')}
                   className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'short_answer' ? 'border border-3 border-primary-300' : ''}`}>
                   <TextCursorInputIcon className="text-4xl text-black px-1" />
                   Short Answer
                 </Button>
-                <Button onClick={()=>{
-                  setType_answer('essay_text')}} className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'border border-3 border-primary-300' ? 'border-primary-300' : ''}`}>
+                <Button
+                  onClick={() => setType_answer('essay_answer')}
+                  className={`p-3 h-1/8 text-black text-[12px] bg-gray-200 hover:bg-gray-300 ${type_answer == 'essay_answer' ? 'border border-3 border-primary-300' : ''}`}>
                   <TextIcon className="text-4xl text-black px-1" />
                   Essay
                 </Button>

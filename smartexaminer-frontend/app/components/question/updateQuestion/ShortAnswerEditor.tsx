@@ -3,17 +3,23 @@ import { PlusIcon, Trash, Trash2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Alternative } from "~/types/Alternative";
 
-export default function ShortAnswerEditor({ alternative, setAlternatives }: { alternative: any[], setAlternatives: any }){
+export default function ShortAnswerEditor({ alternative, setAlternatives, type_answer }: { alternative: any[], setAlternatives: any, type_answer: string }){
   const [formValues, setFormValues] = useState(
-    alternative.length > 0
-      ? alternative.map((alt, index) => ({
+    alternative.length > 0 && type_answer == 'short_answer'
+      ? alternative.filter((alt) => alt.content?.trim() !== '' || alt.content === '<p></p>').map((alt, index) => ({
           id: alt.id,
           content: alt.content ?? '',
           is_correct: alt.is_correct ?? true, // Short answers are typically correct
           alternative_order: alt.alternative_order ?? index,
           _destroy: false
         }))
-      : [{ content: '', is_correct: true, alternative_order: 0, _destroy: false }]
+      : alternative.map((alt, index) => ({
+          id: alt.id,
+          content: alt.content ?? '',
+          is_correct: alt.is_correct ?? true, // Short answers are typically correct
+          alternative_order: alt.alternative_order ?? index,
+          _destroy: true
+        }))
   );
     const [selectedCorrectIndex, setSelectedCorrectIndex] = useState(0);
     const [contents, setContents] = useState(

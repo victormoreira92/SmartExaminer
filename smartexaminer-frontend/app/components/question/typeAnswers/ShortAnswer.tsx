@@ -31,7 +31,6 @@ export default function ShortAnswer({setAlternatives}){
           alternative_order: index
         }));
         setAlternatives(alternatives);
-        console.log(alternatives)
       }, [contents, selectedCorrectIndex]);
 
     const handleContentChange = (index: number, value: string) => {

@@ -3,9 +3,9 @@ import { PlusIcon, Trash2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import EditorQuestion from "../createQuestion/EditorQuestion";
 
-export default function MultipleChoiceEditor({alternatives, setAlternatives}){
+export default function MultipleChoiceEditor({alternatives, setAlternatives, type_answer}) {
   const [formValues, setFormValues] = useState(
-    alternatives.length > 0
+    alternatives.length > 0 && type_answer == 'multi_choice'
       ? alternatives.map((alt, index) => ({
           id: alt.id,
           content: alt.content ?? '',
@@ -13,7 +13,13 @@ export default function MultipleChoiceEditor({alternatives, setAlternatives}){
           alternative_order: alt.alternative_order ?? index,
           _destroy: false
         }))
-      : [{ content: '', is_correct: true, alternative_order: 0, _destroy: false }]
+      : alternatives.map((alt, index) => ({
+          id: alt.id,
+          content: alt.content ?? '',
+          is_correct: alt.is_correct ?? true, // Short answers are typically correct
+          alternative_order: alt.alternative_order ?? index,
+          _destroy: true
+        }))
   );
   const [selectedCorrectIndex, setSelectedCorrectIndex] = useState(new Array(1).fill(false));
   const [contents, setContents] = useState([]);
@@ -42,6 +48,7 @@ export default function MultipleChoiceEditor({alternatives, setAlternatives}){
     
       // Atualiza alternativas sempre que conteúdo ou alternativa correta mudar
    useEffect(() => {
+    console.log(type_answer)
     // Include only non-destroyed alternatives or those marked for destruction
     const alternatives = formValues.map(({ id, content, is_correct, alternative_order, _destroy }) => ({
       ...(id && { id }), // Include id only if it exists

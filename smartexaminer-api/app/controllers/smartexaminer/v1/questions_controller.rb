@@ -17,7 +17,7 @@ module Smartexaminer
 
       # GET /questions/1
       def show
-        render json: @question.as_json(include: :answers)
+        render json: @question.as_json(include: { alternatives: { order: 'updated_at ASC' } })
       end
 
       # POST /questions
@@ -82,7 +82,7 @@ module Smartexaminer
             :feedback_correct,
             :feedback_incorrect,
             :type_answer,
-            alternatives_attributes: %i[content is_correct alternative_order _destroy]
+            alternatives_attributes: %i[id content is_correct alternative_order _destroy]
           )
         end
     end
