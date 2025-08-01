@@ -162,7 +162,7 @@ export default function CreateQuestion() {
               type="submit"
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-4"
             >
-              Atualizar Pergunta
+              Create Question
             </button>
           </form>
         </div>
