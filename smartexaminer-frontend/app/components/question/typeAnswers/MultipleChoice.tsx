@@ -57,7 +57,7 @@ export default function MultipleChoice({setAlternatives}){
     {formValues.map((element, index) => (
       <div className="flex py-1 gap-2" key={index}>        {
           index ? 
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between" id={`multiple_choice_${index}`}>
             <div className="flex w-full gap-2 py-2">
               <div><span className="font-bold  text-[14px] uppercase text-gray border rounded-full p-2">
               {String.fromCharCode(96 + index)}.

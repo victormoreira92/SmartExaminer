@@ -43,7 +43,7 @@ export default function ShortAnswer({setAlternatives}){
     <div className="flex flex-col gap-2">
     {formValues.map((element, index) => (
       <div className="flex py-1 gap-2" key={index}>
-        <TextInput type="text" name="alternative" onChange={(e) => handleContentChange(index, e.target.value)} />
+        <TextInput type="text" data-testid={`short_answer_${index + 1}`} name="alternative" onChange={(e) => handleContentChange(index, e.target.value)} />
           {
             index ? 
               <Button onClick={() => removeFormFields(index)} className="bg-transparent hover:bg-transparent">

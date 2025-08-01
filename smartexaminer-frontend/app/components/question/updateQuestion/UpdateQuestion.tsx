@@ -9,6 +9,7 @@ import ShortAnswerEditor from "./ShortAnswerEditor";
 import { CheckCheckIcon, ListTodoIcon, TextCursorInputIcon, TextIcon } from "lucide-react";
 import EssayAnswer from "../typeAnswers/EssayAnswer";
 import EssayAnswerEditor from "./EssayAnswerEditor";
+import SidebarDashboard from "~/components/dashboard/sidebar";
 
 
 export default function UpdateQuestion() {
@@ -19,10 +20,8 @@ export default function UpdateQuestion() {
   const [feedback_correct, setFeedback_correct] = useState('');
   const [type_answer, setType_answer] = useState('');
   const [old_type_answer, setOld_type_answer] = useState('');
-  const [enums, setEnums] = useState([]);
   const [alternatives_attributes, setAlternativesAtributes] = useState([]);
   const navigate = useNavigate();
-  let type_answer_data = ''
 
 
 
@@ -38,7 +37,6 @@ export default function UpdateQuestion() {
         setType_answer(data.type_answer)
         setOld_type_answer(data.type_answer)
         setAlternativesAtributes(data.alternatives || []);
-        type_answer_data = data.type_answer
       })
       .catch(console.error);
   }, [id]);
@@ -74,27 +72,6 @@ export default function UpdateQuestion() {
   };
 
 
-  // //const handleTypeAnswerChange = (newType: string) => {
-  //   console.log(newType === old_type_answer)
-  //   switch (newType) {
-  //       case old_type_answer:
-  //         setAlternatives(alternatives_attributes)
-  //         break
-  //       case 'true_or_false':
-  //         setAlternatives([{ content: '', is_correct: true }, { content: '', is_correct: false }])
-  //         break
-  //       case 'short_answer':
-  //         setAlternatives([{ content: '', is_correct: false }, { content: '', is_correct: false }])
-  //         break
-  //       case 'essay_text':
-  //         setAlternatives([])
-  //         break
-  //       case 'multi_choice':
-  //         setAlternatives([{ content: '', is_correct: true }, { content: '', is_correct: false }, { content: '', is_correct: false }])
-  //         break
-  //     }
-  // };
-
   const renderComponentByButton = () => {
       switch (type_answer) {
         case 'multi_choice':
@@ -118,7 +95,10 @@ export default function UpdateQuestion() {
     }
 
   return (
-    <Card className="p-6 w-full">
+    <div className="w-full flex min-h-screen">
+      <SidebarDashboard />
+      <div className="flex w-full justify-center p-4 bg-gray-100">
+      <Card className="p-6 w-full">
       <div className="w-full text-black">
         <h5 className="text-xl font-bold mb-4">Atualizar Pergunta</h5>
         <form onSubmit={onSubmitForm} className="flex flex-col gap-4">
@@ -214,5 +194,7 @@ export default function UpdateQuestion() {
         </form>
       </div>
     </Card>
+  </div>
+  </div>
   );
 }
